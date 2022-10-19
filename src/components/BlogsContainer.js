@@ -19,12 +19,10 @@ export default function BlogsContainer() {
 		const mediumURL = "https://medium.com/feed/@gagehutzley";
 		const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${mediumURL}`);
 		const data = await res.json();
-		// console.log(data);
 		return data;
 	});
 
 	useEffect(() => {
-		// console.log("I was called");
 		if (query.status === "success") {
 			setBlogs(query.data.items.slice(0, 2));
 		}
@@ -39,8 +37,6 @@ export default function BlogsContainer() {
 			</div>
 		);
 	}
-
-	// console.log(query);
 
 	const addOrRemoveBlogs = () => {
 		blogs.length === query.data.items.length

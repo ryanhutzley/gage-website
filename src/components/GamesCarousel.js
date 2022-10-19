@@ -17,7 +17,6 @@ export default function GamesCarousel({ onCompleted, onError }) {
 			},
 		});
 		const data = await res.json();
-		console.log(data);
 		return data;
 	});
 

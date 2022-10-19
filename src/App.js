@@ -8,7 +8,7 @@ import { useCallback } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export default function App() {
-	const handleOnCompleted = useCallback((iconName) => console.log(iconName), []);
+	const handleOnCompleted = useCallback((iconName) => iconName, []);
 
 	const handleIconError = useCallback((err) => err.message, []);
 
