@@ -9,9 +9,13 @@ export default function Modal() {
 	};
 
 	useEffect(() => {
-		setTimeout(() => {
-			setModal(true);
-		}, 2000);
+		const hasRendered = localStorage.getItem("hasRendered");
+		if (!hasRendered) {
+			setTimeout(() => {
+				setModal(true);
+				localStorage.setItem("hasRendered", 1);
+			}, 2000);
+		}
 	}, []);
 
 	if (modal) {
