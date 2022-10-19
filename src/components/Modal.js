@@ -13,11 +13,12 @@ export default function Modal() {
 			setModal(true);
 		}, 2000);
 	}, []);
-	// if (modal) {
-	// 	document.body.classList.add("active-modal");
-	// } else {
-	// 	document.body.classList.remove("active-modal");
-	// }
+
+	if (modal) {
+		document.body.classList.add("overflow-y-hidden");
+	} else {
+		document.body.classList.remove("overflow-y-hidden");
+	}
 
 	return (
 		modal && (

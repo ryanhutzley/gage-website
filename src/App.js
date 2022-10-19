@@ -5,14 +5,12 @@ import ProfileCard from "./components/ProfileCard";
 import Header from "./components/Header";
 import Modal from "./components/Modal";
 import { useCallback } from "react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export default function App() {
-	const handleOnCompleted = useCallback(
-		(iconName) => console.log(`${iconName} successfully loaded`),
-		[]
-	);
+	const handleOnCompleted = useCallback((iconName) => console.log(iconName), []);
 
-	const handleIconError = useCallback((err) => console.error(err.message), []);
+	const handleIconError = useCallback((err) => err.message, []);
 
 	const MediaIcons = [
 		{ name: "insta", link: "https://www.instagram.com/gagehutzley/?next=%2Fgagehutzley%2F" },
@@ -22,21 +20,22 @@ export default function App() {
 		{ name: "gmail", link: "mailto:gagehutzley@gmail.com" },
 	];
 
-	// const currentDate = new Date().toISOString();
-	// console.log(typeof currentDate);
+	const queryClient = new QueryClient();
 
 	return (
-		<div className="flex grow flex-col items-center gap-10 bg-field bg-cover bg-fixed bg-center bg-no-repeat px-7 pt-12 pb-2 text-center">
-			<Modal />
-			<Header />
-			<ProfileCard icons={MediaIcons} onCompleted={handleOnCompleted} onError={handleIconError} />
-			<h2 className="text-border font-heading text-5xl text-white">My Blogs</h2>
-			<BlogsContainer />
-			<h2 className="text-border font-heading text-2xl text-white">
-				Drop me a DM to get my take on any of the games below!
-			</h2>
-			<GamesCarousel />
-			<Footer icons={MediaIcons} onCompleted={handleOnCompleted} onError={handleIconError} />
-		</div>
+		<QueryClientProvider client={queryClient}>
+			<div className="flex grow flex-col items-center gap-10 bg-field bg-cover bg-fixed bg-center bg-no-repeat px-7 pt-12 pb-2 text-center">
+				<Modal />
+				<Header />
+				<ProfileCard icons={MediaIcons} onCompleted={handleOnCompleted} onError={handleIconError} />
+				<h2 className="text-border font-heading text-5xl text-white">My Blogs</h2>
+				<BlogsContainer />
+				<h2 className="text-border font-heading text-2xl text-white">
+					Drop me a DM to get my take on any of the games below!
+				</h2>
+				<GamesCarousel onCompleted={handleOnCompleted} onError={handleIconError} />
+				<Footer icons={MediaIcons} onCompleted={handleOnCompleted} onError={handleIconError} />
+			</div>
+		</QueryClientProvider>
 	);
 }

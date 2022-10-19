@@ -28,7 +28,7 @@ export default function useDynamicSVGImport(name, options = {}) {
 		importIcon();
 	}, [name, onCompleted, onError]);
 
-	console.log(ImportedIconRef.current);
+	// console.log(ImportedIconRef.current);
 
 	return { error, loading, SvgIcon: ImportedIconRef.current };
 }

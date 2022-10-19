@@ -1,7 +1,7 @@
 import React from "react";
 import { useCallback } from "react";
 import ProfilePic from "../assets/images/gage-picture.jpeg";
-import MediaIcon from "./MediaIcon";
+import Icon from "./Icon";
 
 export default function ProfileCard({ icons, onCompleted, onError }) {
 	return (
@@ -30,7 +30,7 @@ export default function ProfileCard({ icons, onCompleted, onError }) {
 			<div className="mt-5 flex justify-evenly">
 				{icons.map((icon, index) => (
 					<a href={icon.link} key={index}>
-						<MediaIcon
+						<Icon
 							name={icon.name}
 							className={`h-8 w-8 fill-${icon.name} duration-300 hover:scale-125`}
 							onCompleted={onCompleted}
