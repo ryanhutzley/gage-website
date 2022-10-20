@@ -26,7 +26,7 @@ export default function App() {
 		<QueryClientProvider client={queryClient}>
 			<div className="flex grow flex-col items-center gap-10 bg-field bg-cover bg-fixed bg-center bg-no-repeat px-7 pt-12 pb-2 text-center">
 				<Modal />
-				<Header />
+				<Header onCompleted={handleOnCompleted} onError={handleIconError} />
 				<ProfileCard icons={MediaIcons} onCompleted={handleOnCompleted} onError={handleIconError} />
 				<h2 className="text-border font-heading text-5xl text-white">My Blogs</h2>
 				<BlogsContainer />
