@@ -9,11 +9,11 @@ export default function Modal() {
 	};
 
 	useEffect(() => {
-		const hasRendered = localStorage.getItem("hasRendered");
+		const hasRendered = sessionStorage.getItem("hasRendered");
 		if (!hasRendered) {
 			setTimeout(() => {
 				setModal(true);
-				localStorage.setItem("hasRendered", 1);
+				sessionStorage.setItem("hasRendered", 1);
 			}, 2000);
 		}
 	}, []);
@@ -32,11 +32,14 @@ export default function Modal() {
 					className="fixed top-0 left-0 right-0 bottom-0 h-screen w-screen bg-black bg-opacity-80"
 				></div>
 				<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform">
-					<div className="flex h-96 w-2/5 min-w-fit flex-col gap-3 overflow-auto rounded-lg border-2 border-white bg-black p-5 font-modal text-white animate__fadeInUp animate__animated sm:h-auto sm:text-2xl">
+					<div className="flex h-96 w-2/5 min-w-fit flex-col items-center gap-3 overflow-auto rounded-lg border-2 border-white bg-black p-5 font-modal text-white animate__fadeInUp animate__animated sm:h-auto sm:text-2xl">
 						<p>Want even more football insights???</p>
 						<p>👇 👇 👇</p>
-						<a href="https://footballhelper.com/#52e4cd11-149f-47b9-99a5-b0aadff00438">
-							<img src={FootballHelper} className="inline" />
+						<a
+							href="https://footballhelper.com/#52e4cd11-149f-47b9-99a5-b0aadff00438"
+							className="max-w-fit"
+						>
+							<img src={FootballHelper} className="" />
 						</a>
 						<p className="sm:text-lg">
 							Check out{" "}
