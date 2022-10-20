@@ -1,5 +1,4 @@
 import React from "react";
-import { useCallback } from "react";
 import ProfilePic from "../assets/images/gage-profile-pic.jpeg";
 import Icon from "./Icon";
 

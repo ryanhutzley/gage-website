@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "../assets/images/football_png.png";
 import Icon from "./Icon";
 
 export default function Header({ onCompleted, onError }) {

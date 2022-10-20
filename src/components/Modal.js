@@ -39,7 +39,7 @@ export default function Modal() {
 							href="https://footballhelper.com/#52e4cd11-149f-47b9-99a5-b0aadff00438"
 							className="max-w-fit"
 						>
-							<img src={FootballHelper} className="" />
+							<img src={FootballHelper} alt="FootballHelper" />
 						</a>
 						<p className="sm:text-lg">
 							Check out{" "}
