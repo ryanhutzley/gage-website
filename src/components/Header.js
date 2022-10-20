@@ -12,7 +12,7 @@ export default function Header({ onCompleted, onError }) {
 				className="h-24 w-24 fill-white"
 			/>
 			<h1 className="self-center text-6xl leading-tight">
-				<span className="text-red-500">Gage's</span> <span className="text-blue-500">Picks</span>
+				<span className="text-red-500">Gage</span> <span className="text-blue-500">Sports</span>
 			</h1>
 			<Icon
 				name={"football-helmet"}

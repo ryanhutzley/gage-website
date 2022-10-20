@@ -32,7 +32,14 @@ export default function BlogsContainer() {
 		return (
 			<div className="container mb-6 max-w-sm rounded-lg bg-white bg-opacity-20 p-8 drop-shadow-lg backdrop-blur-lg md:max-w-xl">
 				<div className="grid auto-cols-auto auto-rows-max grid-cols-1 gap-6 md:grid-cols-2">
-					<img src={query.isLoading ? loadingPic : errorPic} />
+					<img
+						src={query.isLoading ? loadingPic : errorPic}
+						alt={query.isLoading ? "loading" : "error"}
+					/>
+					<img
+						src={query.isLoading ? loadingPic : errorPic}
+						alt={query.isLoading ? "loading" : "error"}
+					/>
 				</div>
 			</div>
 		);

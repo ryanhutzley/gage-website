@@ -14,7 +14,7 @@ export default function Modal() {
 			setTimeout(() => {
 				setModal(true);
 				sessionStorage.setItem("hasRendered", 1);
-			}, 2000);
+			}, 10000);
 		}
 	}, []);
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { useCallback } from "react";
-import ProfilePic from "../assets/images/gage-picture.jpeg";
+import ProfilePic from "../assets/images/gage-profile-pic.jpeg";
 import Icon from "./Icon";
 
 export default function ProfileCard({ icons, onCompleted, onError }) {
