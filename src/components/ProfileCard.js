@@ -23,7 +23,7 @@ export default function ProfileCard({ icons, onCompleted, onError }) {
 					<a href={icon.link} key={index}>
 						<Icon
 							name={icon.name}
-							className={`h-8 w-8 fill-${icon.name} duration-300 hover:scale-125`}
+							className={`h-8 w-8 ${icon.style} duration-300 hover:scale-125`}
 							onCompleted={onCompleted}
 							onError={onError}
 						/>

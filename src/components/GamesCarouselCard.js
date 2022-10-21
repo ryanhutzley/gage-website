@@ -4,8 +4,8 @@ import Icon from "./Icon";
 export default function GamesCarouselCard({ game, onCompleted, onError }) {
 	return (
 		<div
-			className={`flex w-36 shrink-0 snap-start flex-col justify-${
-				game.invalid ? "center" : "between"
+			className={`flex w-36 shrink-0 snap-start flex-col ${
+				game.invalid ? "justify-center" : "justify-between"
 			} overflow-hidden rounded-lg bg-slate-50 p-2 drop-shadow`}
 		>
 			{game.invalid ? (

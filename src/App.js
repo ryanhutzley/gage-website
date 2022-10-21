@@ -8,16 +8,23 @@ import { useCallback } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export default function App() {
-	const handleOnCompleted = useCallback((iconName) => iconName, []);
+	const handleOnCompleted = useCallback(
+		(iconName) => console.log(`${iconName} has successfully loaded`),
+		[]
+	);
 
-	const handleIconError = useCallback((err) => err.message, []);
+	const handleIconError = useCallback((err) => console.log(err.message), []);
 
 	const MediaIcons = [
-		{ name: "insta", link: "https://www.instagram.com/gagehutzley/?next=%2Fgagehutzley%2F" },
-		{ name: "linkedin", link: "https://www.linkedin.com/in/gage-hutzley/" },
-		{ name: "medium", link: "https://medium.com/@gagehutzley" },
-		{ name: "twitter", link: "https://twitter.com/gagehutzley" },
-		{ name: "gmail", link: "mailto:gagehutzley@gmail.com" },
+		{
+			name: "insta",
+			link: "https://www.instagram.com/gagehutzley/?next=%2Fgagehutzley%2F",
+			style: "fill-insta",
+		},
+		{ name: "linkedin", link: "https://www.linkedin.com/in/gage-hutzley/", style: "fill-linkedin" },
+		{ name: "medium", link: "https://medium.com/@gagehutzley", style: "fill-medium" },
+		{ name: "twitter", link: "https://twitter.com/gagehutzley", style: "fill-twitter" },
+		{ name: "gmail", link: "mailto:gagehutzley@gmail.com", style: "fill-gmail" },
 	];
 
 	const queryClient = new QueryClient();
