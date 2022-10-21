@@ -8,12 +8,9 @@ import { useCallback } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export default function App() {
-	const handleOnCompleted = useCallback(
-		(iconName) => console.log(`${iconName} has successfully loaded`),
-		[]
-	);
+	const handleOnCompleted = useCallback((iconName) => iconName, []);
 
-	const handleIconError = useCallback((err) => console.log(err.message), []);
+	const handleIconError = useCallback((err) => err.message, []);
 
 	const MediaIcons = [
 		{
