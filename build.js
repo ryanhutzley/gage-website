@@ -27,3 +27,6 @@ config.module.rules[1].oneOf[2] = {
 		},
 	],
 };
+
+config.optimization.minimizer[0].options.minimizer.options.keep_classnames = true;
+config.optimization.minimizer[0].options.minimizer.options.keep_fnames = true;
