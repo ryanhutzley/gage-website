@@ -28,7 +28,7 @@ export default function App() {
 
 	return (
 		<QueryClientProvider client={queryClient}>
-			<div className="flex grow flex-col items-center gap-10 bg-field bg-cover bg-fixed bg-center bg-no-repeat px-7 pt-12 pb-2 text-center">
+			<div className="flex w-screen grow flex-col items-center gap-10 bg-field bg-cover bg-fixed bg-center bg-no-repeat px-7 pt-12 pb-2 text-center">
 				<Modal />
 				<Header onCompleted={handleOnCompleted} onError={handleIconError} />
 				<ProfileCard icons={MediaIcons} onCompleted={handleOnCompleted} onError={handleIconError} />

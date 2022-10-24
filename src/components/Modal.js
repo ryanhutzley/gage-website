@@ -18,11 +18,18 @@ export default function Modal() {
 		}
 	}, []);
 
-	if (modal) {
-		document.body.classList.add("overflow-y-hidden");
-	} else {
-		document.body.classList.remove("overflow-y-hidden");
-	}
+	useEffect(() => {
+		if (modal) {
+			const scrollString = `-${window.scrollY}px`;
+			document.body.style.position = "fixed";
+			document.body.style.top = scrollString;
+		} else {
+			const scrollY = document.body.style.top;
+			document.body.style.position = "";
+			document.body.style.top = "";
+			window.scrollTo(0, parseInt(scrollY || "0") * -1);
+		}
+	}, [modal]);
 
 	return (
 		modal && (
@@ -32,7 +39,7 @@ export default function Modal() {
 					className="fixed top-0 left-0 right-0 bottom-0 h-screen w-screen bg-black bg-opacity-80"
 				></div>
 				<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform">
-					<div className="flex h-96 w-2/5 min-w-fit flex-col items-center gap-3 overflow-auto rounded-lg border-2 border-white bg-black p-5 font-modal text-white animate__fadeInUp animate__animated sm:h-auto sm:text-2xl">
+					<div className="flex h-96 w-[80vw] flex-col items-center gap-3 overflow-auto rounded-lg border-2 border-white bg-black p-5 font-modal text-xl text-white animate__fadeInUp animate__animated sm:h-auto sm:w-max sm:text-2xl">
 						<p>Want even more football insights???</p>
 						<p>👇 👇 👇</p>
 						<a

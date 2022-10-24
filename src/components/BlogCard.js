@@ -21,7 +21,7 @@ export default function BlogCard({ blog }) {
 							})}
 						</div>
 						<span className="group-hover:text-white">
-							{new Date(blog.pubDate).toLocaleDateString()}
+							{new Date(blog.pubDate.replace(" ", "T") + "Z").toLocaleDateString()}
 						</span>
 					</div>
 				</div>

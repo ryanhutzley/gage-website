@@ -11,10 +11,10 @@ export default function ProfileCard({ icons, onCompleted, onError }) {
 					<div className="text-2xl font-bold tracking-wide">Hi! My name is Gage 👋</div>
 					<p className="mt-2 text-slate-700">
 						I love football. And since you're reading this, I know you do too. I'm a former NFL
-						employee and a Sports Communication and Media major from Rowan University who enjoys
-						writing about football, fantasy, and sports betting. Please check out my blogs and hit
-						me up on social media. And be sure to check the game schedule below - always excited to
-						hear some NFL 🔥 takes.
+						employee with a degree in Sports Communication and Media from Rowan University who
+						enjoys writing about football, fantasy, and sports betting. Please check out my blogs
+						and hit me up on social media. And be sure to check the game schedule below - always
+						excited to hear some NFL 🔥 takes.
 					</p>
 				</div>
 			</div>
