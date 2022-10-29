@@ -6,7 +6,7 @@ export default function GamesCarouselCard({ game, onCompleted, onError }) {
 		<div
 			className={`flex w-36 shrink-0 snap-start flex-col ${
 				game.invalid ? "justify-center" : "justify-between"
-			} overflow-hidden rounded-lg bg-slate-50 p-2 drop-shadow`}
+			} overflow-hidden rounded-lg bg-slate-50 p-2 drop-shadow-xl`}
 		>
 			{game.invalid ? (
 				"No more games this week!"

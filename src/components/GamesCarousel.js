@@ -1,87 +1,86 @@
 import GamesCarouselCard from "./GamesCarouselCard";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
+import useWidth from "../hooks/useWidth";
 
 export default function GamesCarousel({ onCompleted, onError }) {
-	// const maxScrollWidth = useRef(0);
+	const [scrollPosition, setScrollPosition] = useState(0);
 	const [maxScrollWidth, setMaxScrollWidth] = useState(0);
-	const [currentIndex, setCurrentIndex] = useState(0);
-	const [games, setGames] = useState([]);
 	const carousel = useRef(null);
+	const visibleWidth = useWidth(carousel);
+	const placeholderData = Array(5).fill({ invalid: true });
 
-	const query = useQuery(["games"], async () => {
-		const res = await fetch("https://nfl-schedule.p.rapidapi.com/v1/schedules", {
-			headers: {
-				"X-RapidAPI-Key": process.env.REACT_APP_API_KEY,
-				"X-RapidAPI-Host": "nfl-schedule.p.rapidapi.com",
-			},
-		});
-		const data = await res.json();
-		return data;
-	});
-
-	useEffect(() => {
-		if (query.status === "success") {
-			const oneDay = 24 * 60 * 60 * 1000;
-			const currentDate = new Date().toLocaleString();
-			const today = new Date(currentDate);
-			const upcomingGames = [];
-			query.data.data.forEach((game) => {
-				const date = new Date(game.date).toLocaleString();
-				const localGameDate = new Date(date);
-				if (localGameDate > today) {
-					const diffDays = Math.round((localGameDate - today) / oneDay);
-					game["invalid"] = false;
-					game["diffDays"] = diffDays;
-					upcomingGames.push(game);
-				}
-			});
-			if (upcomingGames.length < 5) {
-				const extra = Array(5 - upcomingGames.length).fill({ invalid: true });
-				upcomingGames.push(...extra);
+	const getUpcomingGames = useCallback((data) => {
+		const oneDay = 24 * 60 * 60 * 1000;
+		const currentDate = new Date().toLocaleString();
+		const today = new Date(currentDate);
+		const upcomingGames = [];
+		data.data.forEach((game) => {
+			const date = new Date(game.date).toLocaleString();
+			const localGameDate = new Date(date);
+			if (localGameDate > today) {
+				const diffDays = Math.ceil((localGameDate - today) / oneDay);
+				game["invalid"] = false;
+				game["diffDays"] = diffDays;
+				upcomingGames.push(game);
 			}
-			setGames(upcomingGames);
+		});
+		if (upcomingGames.length < 5) {
+			const extra = Array(5 - upcomingGames.length).fill({ invalid: true });
+			upcomingGames.push(...extra);
 		}
-	}, [query.status, query.data]);
+		return upcomingGames;
+	}, []);
+
+	const query = useQuery(
+		["games"],
+		async () => {
+			const res = await fetch("https://nfl-schedule.p.rapidapi.com/v1/schedules", {
+				headers: {
+					"X-RapidAPI-Key": process.env.REACT_APP_API_KEY,
+					"X-RapidAPI-Host": "nfl-schedule.p.rapidapi.com",
+				},
+			});
+			const data = await res.json();
+			return data;
+		},
+		{
+			select: getUpcomingGames,
+			staleTime: 60000 * 5,
+		}
+	);
 
 	useEffect(() => {
-		setMaxScrollWidth(
-			carousel.current ? carousel.current.scrollWidth - carousel.current.offsetWidth : 0
-		);
-	}, [games]);
-
-	useEffect(() => {
-		if (carousel !== null && carousel.current !== null) {
-			carousel.current.scrollLeft = carousel.current.offsetWidth * currentIndex;
-		}
-	}, [currentIndex]);
-
-	const movePrev = () => {
-		if (currentIndex > 0) {
-			setCurrentIndex((prevState) => prevState - 1);
-		}
-	};
+		setMaxScrollWidth(carousel.current ? carousel.current.scrollWidth - visibleWidth : 0);
+	}, [query.data, visibleWidth]);
 
 	const moveNext = () => {
-		if (
-			carousel.current !== null &&
-			carousel.current.offsetWidth * currentIndex <= maxScrollWidth
-		) {
-			setCurrentIndex((prevState) => prevState + 1);
-		}
+		const nextPos = scrollPosition + Math.floor(visibleWidth / 144) * 144;
+		setScrollPosition(nextPos >= maxScrollWidth ? maxScrollWidth : nextPos);
+	};
+
+	const movePrev = () => {
+		const prevPos = scrollPosition - Math.floor(visibleWidth / 144) * 144;
+		setScrollPosition(prevPos <= 0 ? 0 : prevPos);
 	};
 
 	const isDisabled = (direction) => {
 		if (direction === "prev") {
-			return currentIndex <= 0;
+			return scrollPosition <= 0;
 		}
 
-		if (direction === "next" && carousel.current !== null) {
-			return carousel.current.offsetWidth * currentIndex >= maxScrollWidth;
+		if (direction === "next") {
+			return scrollPosition >= maxScrollWidth;
 		}
 
 		return false;
 	};
+
+	const games = query.isLoading || query.error ? placeholderData : query.data;
+
+	if (carousel.current) {
+		carousel.current.scrollLeft = scrollPosition;
+	}
 
 	return (
 		<div className="container mb-5 flex h-20 max-w-lg overflow-hidden rounded-lg bg-red-100 drop-shadow-lg backdrop-blur-lg md:max-w-4xl">
@@ -89,7 +88,7 @@ export default function GamesCarousel({ onCompleted, onError }) {
 				<p className="sm:text-md text-sm font-bold text-white">NFL Upcoming Games</p>
 			</div>
 			<div
-				className="ml-1 flex touch-pan-x snap-x snap-mandatory gap-1 overflow-hidden scroll-smooth"
+				className="relative flex touch-pan-x snap-x snap-mandatory overflow-hidden scroll-smooth"
 				ref={carousel}
 			>
 				{games.map((game, index) => {
