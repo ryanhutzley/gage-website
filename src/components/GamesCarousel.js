@@ -19,7 +19,7 @@ export default function GamesCarousel({ onCompleted, onError }) {
 			const date = new Date(game.date).toLocaleString();
 			const localGameDate = new Date(date);
 			if (localGameDate > today) {
-				const diffDays = Math.ceil((localGameDate - today) / oneDay);
+				const diffDays = Math.round((localGameDate - today) / oneDay);
 				game["invalid"] = false;
 				game["diffDays"] = diffDays;
 				upcomingGames.push(game);
