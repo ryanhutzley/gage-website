@@ -39,7 +39,7 @@ export default function Modal() {
 					className="fixed top-0 left-0 right-0 bottom-0 h-screen w-screen bg-black bg-opacity-80"
 				></div>
 				<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform">
-					<div className="flex h-96 w-[80vw] flex-col items-center gap-3 overflow-auto rounded-lg border-2 border-white bg-black p-5 font-modal text-xl text-white animate__fadeInUp animate__animated sm:h-auto sm:w-max sm:text-2xl">
+					<div className="flex h-96 w-[80vw] touch-pan-y flex-col items-center gap-3 overflow-auto rounded-lg border-2 border-white bg-black p-5 font-modal text-xl text-white animate__fadeInUp animate__animated sm:h-auto sm:w-max sm:text-2xl">
 						<p>Want even more football insights???</p>
 						<p>👇 👇 👇</p>
 						<a
