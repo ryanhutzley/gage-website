@@ -10,21 +10,26 @@ export default function GamesCarousel({ onCompleted, onError }) {
 	const visibleWidth = useWidth(carousel);
 	const placeholderData = Array(6).fill({ invalid: true });
 
+	const getDateAndDateTime = (dateObj) => {
+		const dateTimeString = dateObj.toLocaleString();
+		const dateString = dateObj.toLocaleDateString();
+		return [new Date(dateTimeString), new Date(dateString)];
+	};
+
 	const getUpcomingGames = useCallback((data) => {
 		const oneDay = 24 * 60 * 60 * 1000;
-		const currentDate = new Date().toLocaleDateString();
-		const today = new Date(currentDate);
+		const [todayDateTime, todayDate] = getDateAndDateTime(new Date());
 		const upcomingGames = [];
 		data.data.forEach((game) => {
-			const date = new Date(game.date).toLocaleDateString();
-			const localGameDate = new Date(date);
-			if (localGameDate > today) {
-				const diffDays = (localGameDate - today) / oneDay;
+			const [gameDateTime, gameDate] = getDateAndDateTime(new Date(game.date));
+			if (gameDateTime > todayDateTime) {
+				const diffDays = (gameDate - todayDate) / oneDay;
 				game["invalid"] = false;
 				game["diffDays"] = diffDays;
 				upcomingGames.push(game);
 			}
 		});
+		upcomingGames.sort((a, b) => a.diffDays - b.diffDays);
 		if (upcomingGames.length < 6) {
 			const extra = Array(6 - upcomingGames.length).fill({ invalid: true });
 			upcomingGames.push(...extra);
@@ -42,6 +47,7 @@ export default function GamesCarousel({ onCompleted, onError }) {
 				},
 			});
 			const data = await res.json();
+			console.log(data);
 			return data;
 		},
 		{

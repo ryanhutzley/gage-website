@@ -5,7 +5,8 @@ export default function useWindowSize(carousel) {
 	useLayoutEffect(() => {
 		function updateSize() {
 			if (carousel.current) {
-				setSize(carousel.current.offsetWidth);
+				const width = carousel.current.offsetWidth;
+				setSize(width >= 144 ? width : 144);
 			}
 		}
 		window.addEventListener("resize", updateSize);
