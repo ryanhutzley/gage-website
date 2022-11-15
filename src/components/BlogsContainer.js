@@ -19,7 +19,10 @@ export default function BlogsContainer() {
 		["blogs"],
 		async () => {
 			const mediumURL = "https://medium.com/feed/@gagehutzley";
-			const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${mediumURL}`);
+			const unixTimestamp = Math.floor(new Date().getTime() / 1000);
+			const res = await fetch(
+				`https://api.rss2json.com/v1/api.json?rss_url=${mediumURL}?t=${unixTimestamp}`
+			);
 			const data = await res.json();
 			return data;
 		},
